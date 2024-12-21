@@ -1,11 +1,9 @@
-
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { Team } from 'src/app/models/team';
+import { Participant } from 'src/app/models/participant';
+import { TeamService } from 'src/app/services/team.service';
 
-import { Participant
-
- } from 'src/app/models/participant';import { TeamService } from 'src/app/services/team.service';
 @Component({
   selector: 'app-form-team',
   templateUrl: './form-team.component.html',
@@ -15,7 +13,7 @@ export class FormTeamComponent {
   teamForm: FormGroup;
   participants: Participant[] = [{ id: 1, fullname: '', email: '' }]; // Initial participant
 
-  constructor(private fb: FormBuilder,private TeamService:TeamService) {
+  constructor(private fb: FormBuilder, private TeamService: TeamService) {
     this.teamForm = this.fb.group({
       name: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
       projectName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
@@ -33,20 +31,45 @@ export class FormTeamComponent {
   }
 
   addParticipant() {
-    this.participants.push({ id: this.participants.length + 1, fullname: '', email: '' });
-  
-    //this.teamForm.get('participants')?.push(this.createParticipantFormGroup({ id: 0, fullname: '', email: '' }));
+    this.TeamService.addParticipant({ id: 0, fullname: '', email: '' }).subscribe({
+      next: (newParticipant) => {
+        this.participants.push({ 
+          id: newParticipant.id, 
+          fullname: newParticipant.fullname, 
+          email: newParticipant.email 
+        });
+        const participantsArray = this.teamForm.get('participants') as FormArray;
+        participantsArray.push(this.createParticipantFormGroup(newParticipant));
+      },
+      error: (error) => {
+        console.error('Error adding participant:', error);
+      }
+    });
   }
 
   onSubmit() {
+    const participantsArray = this.teamForm.get('participants') as FormArray;
+    participantsArray.controls.forEach((participantControl, index) => {
+      const participant = participantControl.value;
+      if (!participant.id) {
+        this.TeamService.addParticipant(participant).subscribe({
+          next: (newParticipant) => {
+            participantControl.patchValue(newParticipant);
+          },
+          error: (error) => {
+            console.error(`Error adding participant at index ${index}:`, error);
+          }
+        });
+      }
+    });
     if (this.teamForm.valid) {
       const newTeam: Team = this.teamForm.value;
       this.TeamService.addTeam(newTeam).subscribe(
-       {
-        next: (data) => {
-        console.log(data);
+        {
+          next: (data) => {
+            console.log(data);
+          }
         }
-       }
       )
       console.log('Team added:', newTeam);
     }

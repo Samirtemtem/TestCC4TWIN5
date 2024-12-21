@@ -4,6 +4,8 @@ import { ParticipantsComponent } from './participants/participants.component';
 
 const routes: Routes = [
   { path: ':id', component: ParticipantsComponent },
+  { path: '/myteams', component: ParticipantsComponent },
+
 ];
 
 @NgModule({

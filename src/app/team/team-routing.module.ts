@@ -8,7 +8,6 @@ const routes: Routes = [
   { path: '', component: TeamsComponent },
   { path: 'addteam', component: FormTeamComponent },
   { path: 'showteams', component: TeamsComponent },
-  { path: 'showmyteams', component: MyteamsComponent },
 ];
 
 @NgModule({

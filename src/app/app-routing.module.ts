@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/teams', pathMatch: 'full' },
   { path: 'teams', loadChildren: () => import('./team/team.module').then(m => m.TeamModule) },
   { path : 'participants', loadChildren: () => import('./participants/participants.module').then(m => m.ParticipantsModule) },
+  
   { path: '**', component: NotFoundComponentComponent }
 ];
 
