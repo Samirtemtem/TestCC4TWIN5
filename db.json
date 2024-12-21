@@ -1,0 +1,52 @@
+{
+  "teams": [
+    {
+      "id": 1,
+      "title": "Menu Gold",
+      "image": "path/to/image1.jpg",
+      "description": "Description of Menu Gold",
+      "mark": 0,
+      "approved": true,
+      "reservations": []
+    },
+    {
+      "id": "d8a0",
+      "name": "azeazh",
+      "projectName": "ezjaopeja",
+      "level": "eza",
+      "projectDescription": "zaeaz",
+      "participants": [
+        {
+          "fullname": "azeaz",
+          "email": "ezaea@zae.za"
+        }
+      ]
+    },
+    {
+      "id": "3f8d",
+      "name": "azeazh",
+      "projectName": "ezjaopeja",
+      "level": "eza",
+      "projectDescription": "zaeaz",
+      "participants": [
+        {
+          "fullname": "azeaz",
+          "email": "ezaea@zae.za"
+        }
+      ]
+    },
+    {
+      "id": "f71c",
+      "name": "azeazh",
+      "projectName": "ezjaopeja",
+      "level": "eza",
+      "projectDescription": "zaeaz",
+      "participants": [
+        {
+          "fullname": "azeaz",
+          "email": "ezaea@zae.za"
+        }
+      ]
+    }
+  ]
+}

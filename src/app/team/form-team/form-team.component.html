@@ -1,0 +1,28 @@
+<form [formGroup]="teamForm" (ngSubmit)="onSubmit()">
+    <label>Name:</label>
+    <input formControlName="name" />
+    <div *ngIf="teamForm.get('name')?.invalid && teamForm.get('name')?.touched">Name is required and must be alphanumeric.</div>
+  
+    <label>Project Name:</label>
+    <input formControlName="projectName" />
+    <div *ngIf="teamForm.get('projectName')?.invalid && teamForm.get('projectName')?.touched">Project Name is required and must be alphanumeric.</div>
+  
+    <label>Level:</label>
+    <input formControlName="level" />
+    <div *ngIf="teamForm.get('level')?.invalid && teamForm.get('level')?.touched">Level is required and must be alphanumeric.</div>
+  
+    <label>Project Description:</label>
+    <textarea formControlName="projectDescription"></textarea>
+    <div *ngIf="teamForm.get('projectDescription')?.invalid && teamForm.get('projectDescription')?.touched">Project Description must be at least 5 characters.</div>
+  
+    <div formArrayName="participants">
+      <div *ngFor="let participant of participants; let i = index" [formGroupName]="i">
+        <label>Participant Fullname:</label>
+        <input formControlName="fullname" />
+        <label>Participant Email:</label>
+        <input formControlName="email" />
+      </div>
+    </div>
+    <button type="button" (click)="addParticipant()">Add Participant</button>
+    <button type="submit" [disabled]="teamForm.invalid">Add Team</button>
+  </form>
